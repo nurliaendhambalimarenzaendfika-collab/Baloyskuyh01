@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baloy Gallery</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    overflow:hidden;
+}
+
+/* BACKGROUND MIRROR */
+.bg{
+    position:fixed;
+    inset:0;
+    background:url("foto1.jpg") center/cover no-repeat;
+    filter:blur(25px) brightness(0.6);
+    transform:scale(1.2);
+    transition:0.6s;
+    z-index:-1;
+}
+
+.container{
+    width:360px;
+    margin:auto;
+    padding:20px;
+    color:white;
+}
+
+/* PROFIL */
+.profile{
+    text-align:center;
+    transition:0.5s;
+}
+
+.profile.shrink{
+    text-align:left;
+    transform:scale(0.6) translateX(-40px);
+}
+
+.profile img{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid white;
+}
+
+.profile h2{
+    margin-top:10px;
+    font-weight:bold;
+    font-style:italic;
+}
+
+/* GRID */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    margin-top:20px;
+}
+
+.gallery img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:10px;
+    transition:0.4s;
+    cursor:pointer;
+}
+
+/* EFFECT CLICK */
+.gallery.active img{
+    transform:scale(0.8);
+    opacity:0.6;
+}
+
+.gallery img.focus{
+    transform:scale(1.6);
+    z-index:10;
+    opacity:1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg" id="bg"></div>
+
+<div class="container">
+
+    <div class="profile" id="profile">
+        <img src="foto1.jpg">
+        <h2>𝘽𝙖𝙡𝙤𝙮𝙎𝙠𝙪𝙮𝙝𝓰𝓲𝓽𝓱𝓾𝓫</h2>
+    </div>
+
+    <div class="gallery" id="gallery">
+        <img src="foto10.jpg">
+        <img src="foto2.jpg">
+        <img src="foto3.jpg">
+        <img src="foto4.jpg">
+        <img src="foto5.jpg">
+        <img src="foto6.jpg">
+        <img src="foto7.jpg">
+        <img src="foto8.jpg">
+        <img src="foto9.jpg">
+    </div>
+
+</div>
+
+<script>
+const profile = document.getElementById("profile");
+const gallery = document.getElementById("gallery");
+const images = gallery.querySelectorAll("img");
+const bg = document.getElementById("bg");
+
+images.forEach(img=>{
+    img.addEventListener("click", ()=>{
+        profile.classList.add("shrink");
+        gallery.classList.add("active");
+
+        images.forEach(i=>i.classList.remove("focus"));
+        img.classList.add("focus");
+
+        /* GANTI BACKGROUND KE FOTO YANG DIKLIK */
+        bg.style.backgroundImage = `url(${img.src})`;
+    });
+});
+</script>
+
+</body>
+</html>
